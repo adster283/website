@@ -1,0 +1,358 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<br />
+<form method="POST">
+    <div class="row">
+        <div class="column col-md-3 col-xs-2">
+            <div class="form-group">
+                <input type="text" class="form-control" id="ticker" name="ticker" placeholder={{current_ticker}}>
+            </div>
+        </div>
+        <div class="column col-md-1 col-xs-1">
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<br />
+
+<div class="row">
+    <h1>{{data[-1][0]}}&nbsp;&nbsp;&nbsp;${{prices["price"]}}{{prices["price_change"]}}</h1>
+</div>
+
+<br />
+<br />
+
+<div class="row"><h4>Overview:</h4></div>
+
+<div class="row">
+    <div class="column border rounded col-lg-6 mb-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center" colspan="3">5 year overview of financials</th>
+            </tr>
+            </thead>
+            <thead>
+            <tr>
+                {% if (data[0]["roic_5yr"] is not string) and (data[0]["roic_5yr"]is not none) %}
+                <th scope="col">Roic > 9</th>
+                <td>{{data[0]["roic_5yr"]|round(2)}}</td>
+                {% if data[0]["roic_5yr"] > 9 %}
+                <td  class="table-success"></td>
+                {% else %}
+                <td  class="table-danger"></td>
+                {% endif %}
+                {% else %}
+                <th scope="col">Roic > 9</th>
+                <td>NA</td>
+                <td  class="table-danger"></td>
+                {% endif %}
+
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">pe < 22</th>
+                <td>{{data[0]["pe_5yr"]|round(2)}}</td>
+                {% if data[0]["pe_5yr"] < 22 %}
+                <td  class="table-success"></td>
+                {% else %}
+                <td  class="table-danger"></td>
+                {% endif %}
+            </tr>
+            <tr>
+                {% if data[0]["income_5yr"] is not string %}
+                <th scope="row">Income > 0</th>
+                <td>{{data[0]["income_5yr"]|round(2)}}</td>
+                {% if data[0]["income_5yr"] > 0 %}
+                <td  class="table-success"></td>
+                {% else %}
+                <td  class="table-danger"></td>
+                {% endif %}
+                {% else %}
+                <th scope="col">Income > 0</th>
+                <td>NA</td>
+                <td  class="table-danger"></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th scope="row">Shares < 0</th>
+                <td >{{data[0]["shares_5yr"]|round(2)}}</td>
+                {% if data[0]["shares_5yr"] <= 0 %}
+                <td  class="table-success"></td>
+                {% else %}
+                <td  class="table-danger"></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th scope="row">pfcf < 22</th>
+                <td >{{data[0]["pfcf_5yr"]|round(2)}}</td>
+                {% if data[0]["pfcf_5yr"] < 22 %}
+                <td  class="table-success"></td>
+                {% else %}
+                <td  class="table-danger"></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th scope="row">ltl < 5</th>
+                <td >{{data[0]["ltl_5yr"]|round(2)}}</td>
+                {% if data[0]["ltl_5yr"] < 5 %}
+                <td  class="table-success"></td>
+                {% else %}
+                <td  class="table-danger"></td>
+                {% endif %}
+            </tr>
+            <tr>
+                {% if data[0]["cfo_5yr"] is not string %}
+                <th scope="row">cfo > 0</th>
+                <td >{{data[0]["cfo_5yr"]|round(2)}}</td>
+                {% if data[0]["cfo_5yr"] > 0 %}
+                <td  class="table-success"></td>
+                {% else %}
+                <td  class="table-danger"></td>
+                {% endif %}
+                {% else %}
+                <th scope="col">cfo > 0</th>
+                <td>NA</td>
+                <td  class="table-danger"></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th scope="row">Revenue > 0</th>
+                <td >{{data[0]["revenue_5yr"]|round(2)}}</td>
+                {% if data[0]["revenue_5yr"] > 0 %}
+                <td  class="table-success"></td>
+                {% else %}
+                <td  class="table-danger"></td>
+                {% endif %}
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="column border rounded col-lg-6 mb-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col" class="text-center">DCF prices to pay</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% if data[2] != "NA" %}
+                <td class="text-center">${{data[2]["price_low"][0]|round(2)}}</td>
+                <td class="text-center">${{data[2]["price_med"][0]|round(2)}}</td>
+                <td class="text-center">${{data[2]["price_high"][0]|round(2)}}</td>
+                {% else %}
+                <td class="text-center">{{"NA"}}</td>
+                <td class="text-center">{{"NA"}}</td>
+                <td class="text-center">{{"NA"}}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                {% if data[2] != "NA" %}
+                <td class="text-center">{{(data[2]["price_low"][1]*100)|round(2)}}%</td>
+                <td class="text-center">{{(data[2]["price_med"][1]*100)|round(2)}}%</td>
+                <td class="text-center">{{(data[2]["price_high"][1]*100)|round(2)}}%</td>
+                {% else %}
+                <td class="text-center">{{"NA"}}</td>
+                <td class="text-center">{{"NA"}}</td>
+                <td class="text-center">{{"NA"}}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td></td>
+                <th scope="col" class="text-center">Graham Valuation</th>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="text-center">${{data[1]|round(2)}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <th scope="col" class="text-center">Other valuation metris</th>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">Price to book</td>
+                <td class="text-center">{{ratios["pb"]}}</td>
+            </tr>
+            <tr>
+                <td colspan="2">Price to earnings</td>
+                <td class="text-center">{{ratios["pe"]}}</td>
+            </tr>
+            <tr>
+                <td colspan="2">Price to earnings growth</td>
+                <td class="text-center">{{ratios["peg"]}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <h4>Dividends:</h4>
+</div>
+
+<div class="row">
+    <p4>${{div}}</p4>
+</div>
+
+<div class="row">
+<script
+                    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+            </script>
+
+            <canvas id="divChart" width="100" height="50"></canvas>
+            <script>
+const div = document.getElementById('divChart').getContext('2d');
+const divChart = new Chart(div, {
+    type: 'bar',
+    data: {
+        labels: {{data[-4]["financials"]["annual"]["period_end_date"]|safe}},
+
+        datasets: [{
+            label: 'Dividends per share for {{current_ticker}}',
+            tension: 0,
+            data: {{data[-4]["financials"]["annual"]["dividends"]|safe}},
+            borderWidth: 2
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+</div>
+
+<br />
+
+<div class="row">
+    <h4>Revenue:</h4>
+</div>
+
+<div class="row">
+
+            <canvas id="revChart" width="100" height="50"></canvas>
+            <script>
+const rev = document.getElementById('revChart').getContext('2d');
+const revChart = new Chart(rev, {
+    type: 'bar',
+    data: {
+        labels: {{data[-4]["financials"]["quarterly"]["period_end_date"]|safe}},
+
+        datasets: [{
+            label: 'Revenue for {{current_ticker}}',
+            tension: 0,
+            data: {{data[-4]["financials"]["quarterly"]["revenue"]|safe}},
+            borderWidth: 2
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+</div>
+
+<br />
+
+<div class="row">
+    <h4>Income:</h4>
+</div>
+
+<div class="row">
+<script
+                    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+            </script>
+
+            <canvas id="incomeChart" width="100" height="50"></canvas>
+            <script>
+const income = document.getElementById('incomeChart').getContext('2d');
+const incomeChart = new Chart(income, {
+    type: 'bar',
+    data: {
+        labels: {{data[-4]["financials"]["quarterly"]["period_end_date"]|safe}},
+
+        datasets: [{
+            label: 'Income for {{current_ticker}}',
+            tension: 0,
+            data: {{data[-4]["financials"]["quarterly"]["operating_income"]|safe}},
+            borderWidth: 2
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+</div>
+
+<br />
+
+<div class="row">
+    <h4>Roic:</h4>
+</div>
+
+<div class="row">
+<script
+                    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+            </script>
+
+            <canvas id="roicChart" width="100" height="50"></canvas>
+            <script>
+const roic = document.getElementById('roicChart').getContext('2d');
+const roicChart = new Chart(roic, {
+    type: 'bar',
+    data: {
+        labels: {{data[-4]["financials"]["quarterly"]["period_end_date"]|safe}},
+
+        datasets: [{
+            label: 'roic for {{current_ticker}}',
+            tension: 0,
+            data: {{data[-4]["financials"]["quarterly"]["roic"]|safe}},
+            borderWidth: 2
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+</div>
+
+<br />
+
+<div class="row">
+    <h4>Description:</h4>
+    <p4>{{data[7][-1]}}</p4>
+</div>
+
+<br />
+<br />
+{%endblock %}
