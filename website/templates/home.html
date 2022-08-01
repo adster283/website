@@ -1,35 +1,5 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<script
-                    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-            </script>
-
-            <canvas id="myChart" width="100" height="50"></canvas>
-            <script>
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: {{test|safe}},
-
-        datasets: [{
-            label: 'Price chart for {{"hello"}}',
-            tension: 0,
-            data: {{test|safe}},
-            borderColor: [
-                'rgba(128,0,128)',
-            ],
-            borderWidth: 2
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-</script>
+<p5>{{tickers["5"]}}</p5>
 {%endblock %}

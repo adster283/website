@@ -11,8 +11,9 @@ views = Blueprint("views", __name__)
 
 @views.route("/")
 def home():
-    test = [1, 2, 3, 4, 5, 6]
-    return render_template("home.html", user=current_user, test=test)
+    tickers = get_trending_tickers()
+    print("tickers:", tickers)
+    return render_template("home.html", user=current_user, tickers=tickers)
 
 @views.route("/analysis", methods=['GET', 'POST'])
 def analysis():
