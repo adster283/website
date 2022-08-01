@@ -18,15 +18,9 @@ def get_trending_tickers():
         tickers ={
         "0" : (dom.xpath('//*[@id="root"]/div[2]/div[4]/div[2]/div[2]/div[2]/div[2]/div[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/div/div/a')[0].text ),
         "1" : (dom.xpath('//*[@id="root"]/div[2]/div[4]/div[2]/div[2]/div[2]/div[2]/div[3]/div[2]/div[2]/table/tbody/tr[2]/td[1]/div/div/a')[0].text ),
-        "2" : (dom.xpath('//*[@id="root"]/div[2]/div[4]/div[2]/div[2]/div[2]/div[2]/div[3]/div[2]/div[2]/table/tbody/tr[3]/td[1]/div/div/a')[0].text ),
-        "3" : (dom.xpath('//*[@id="root"]/div[2]/div[4]/div[2]/div[2]/div[2]/div[2]/div[3]/div[2]/div[2]/table/tbody/tr[4]/td[1]/div/div/a')[0].text ),
-        "4" : (dom.xpath('//*[@id="root"]/div[2]/div[4]/div[2]/div[2]/div[2]/div[2]/div[3]/div[2]/div[2]/table/tbody/tr[5]/td[1]/div/div/a')[0].text ),
-        "5" : (dom.xpath('//*[@id="root"]/div[2]/div[4]/div[2]/div[2]/div[2]/div[2]/div[3]/div[2]/div[2]/table/tbody/tr[6]/td[1]/div/div/a')[0].text ),
-        "6" : (dom.xpath('//*[@id="root"]/div[2]/div[4]/div[2]/div[2]/div[2]/div[2]/div[3]/div[2]/div[2]/table/tbody/tr[7]/td[1]/div/div/a')[0].text ),
-        "7" : (dom.xpath('//*[@id="root"]/div[2]/div[4]/div[2]/div[2]/div[2]/div[2]/div[3]/div[2]/div[2]/table/tbody/tr[8]/td[1]/div/div/a')[0].text ),
         }
     except:
-        tickers={"0": "NA","1": "NA","2": "NA","3": "NA","4": "NA","5": "NA","6": "NA","7": "NA",}
+        tickers={"0": "NA","1": "NA"}
 
     print("tickers:", tickers)
     return tickers
