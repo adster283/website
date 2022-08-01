@@ -5,7 +5,7 @@ from lxml import html, etree
 
 def get_trending_tickers():
 
-    url = "https://www.tipranks.com/compare-stocks/value"
+    url = "https://www.marketinout.com/investment/report.php?report=dogs_of_the_dow"
 
     headers = {"User-Agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 OPR/89.0.4447.64 (Edition std-1)"}
     webpage = requests.get(url, headers = {"User-Agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 OPR/89.0.4447.64 (Edition std-1)"})
@@ -15,12 +15,18 @@ def get_trending_tickers():
     dom = etree.HTML(str(soup)) 
 
     try:
-        tickers ={
-        "0" : (dom.xpath('//*[@id="root"]/div[2]/div[4]/div[2]/div[2]/div[2]/div[2]/div[3]/div[2]/div[2]/table/tbody/tr[1]/td[1]/div/div/a')[0].text ),
-        "1" : (dom.xpath('//*[@id="root"]/div[2]/div[4]/div[2]/div[2]/div[2]/div[2]/div[3]/div[2]/div[2]/table/tbody/tr[2]/td[1]/div/div/a')[0].text ),
-        }
+        tickers = {"0" : (dom.xpath('//*[@id="results"]/tbody[1]/tr[1]/td[1]/a')[0].text,  (dom.xpath('//*[@id="results"]/tbody[1]/tr[1]/td[2]')[0].text[1:]), (dom.xpath('//*[@id="results"]/tbody[1]/tr[1]/td[4]')[0].text[1:])),
+        "1" : (dom.xpath('//*[@id="results"]/tbody[1]/tr[2]/td[1]/a')[0].text,  (dom.xpath('//*[@id="results"]/tbody[1]/tr[2]/td[2]')[0].text[1:]), (dom.xpath('//*[@id="results"]/tbody[1]/tr[2]/td[4]')[0].text[1:])),
+        "2" : (dom.xpath('//*[@id="results"]/tbody[1]/tr[3]/td[1]/a')[0].text,  (dom.xpath('//*[@id="results"]/tbody[1]/tr[3]/td[2]')[0].text[1:]), (dom.xpath('//*[@id="results"]/tbody[1]/tr[3]/td[4]')[0].text[1:])),
+        "3" : (dom.xpath('//*[@id="results"]/tbody[1]/tr[4]/td[1]/a')[0].text,  (dom.xpath('//*[@id="results"]/tbody[1]/tr[4]/td[2]')[0].text[1:]), (dom.xpath('//*[@id="results"]/tbody[1]/tr[4]/td[4]')[0].text[1:])),
+        "4" : (dom.xpath('//*[@id="results"]/tbody[1]/tr[5]/td[1]/a')[0].text,  (dom.xpath('//*[@id="results"]/tbody[1]/tr[5]/td[2]')[0].text[1:]), (dom.xpath('//*[@id="results"]/tbody[1]/tr[5]/td[4]')[0].text[1:])),
+        "5" : (dom.xpath('//*[@id="results"]/tbody[1]/tr[6]/td[1]/a')[0].text,  (dom.xpath('//*[@id="results"]/tbody[1]/tr[6]/td[2]')[0].text[1:]), (dom.xpath('//*[@id="results"]/tbody[1]/tr[6]/td[4]')[0].text[1:])),
+        "6" : (dom.xpath('//*[@id="results"]/tbody[1]/tr[7]/td[1]/a')[0].text,  (dom.xpath('//*[@id="results"]/tbody[1]/tr[7]/td[2]')[0].text[1:]), (dom.xpath('//*[@id="results"]/tbody[1]/tr[7]/td[4]')[0].text[1:])),
+        "7" : (dom.xpath('//*[@id="results"]/tbody[1]/tr[8]/td[1]/a')[0].text,  (dom.xpath('//*[@id="results"]/tbody[1]/tr[8]/td[2]')[0].text[1:]), (dom.xpath('//*[@id="results"]/tbody[1]/tr[8]/td[4]')[0].text[1:])),
+        "8" : (dom.xpath('//*[@id="results"]/tbody[1]/tr[9]/td[1]/a')[0].text,  (dom.xpath('//*[@id="results"]/tbody[1]/tr[9]/td[2]')[0].text[1:]), (dom.xpath('//*[@id="results"]/tbody[1]/tr[9]/td[4]')[0].text[1:])),
+        "9" : (dom.xpath('//*[@id="results"]/tbody[1]/tr[10]/td[1]/a')[0].text,  (dom.xpath('//*[@id="results"]/tbody[1]/tr[10]/td[2]')[0].text[1:]), (dom.xpath('//*[@id="results"]/tbody[1]/tr[10]/td[4]')[0].text[1:])),}
     except:
-        tickers={"0": "NA","1": "NA"}
+        tickers=0
 
     print("tickers:", tickers)
     return tickers
@@ -134,11 +140,12 @@ def get_current_ratios(ticker):
 
 
 if __name__ == "__main__":
-    ticker = "fph:nz"
-    if ":" in ticker:
-        print(ticker)
-        pos = ticker.find(":")
-        ticker = ticker[:pos] + "." + ticker[pos+1:]
-        print(ticker)
-    get_current_price("fph.nz")
-    print(get_current_estimate("fph.nz"))
+    # ticker = "fph:nz"
+    # if ":" in ticker:
+    #     print(ticker)
+    #     pos = ticker.find(":")
+    #     ticker = ticker[:pos] + "." + ticker[pos+1:]
+    #     print(ticker)
+    # get_current_price("fph.nz")
+    # print(get_current_estimate("fph.nz"))
+    get_trending_tickers()
