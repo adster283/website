@@ -15,7 +15,9 @@ views = Blueprint("views", __name__)
 
 @views.route("/financials")
 def financials():
-    data = get_full_data("intc")
+    ticker = User.query.filter_by(id=current_user.id).first()
+    ticker =ticker.current_stock
+    data = get_full_data(ticker)
     cash_flow = get_cash_flow_statement(data)
     balance = get_balance_sheet(data)
     income = get_income_statement(data)
