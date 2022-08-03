@@ -11,7 +11,7 @@ keys = (
 
 
 
-client = QuickFS(keys[0])
+client = QuickFS(keys[1])
 
 def get_symbols():
     """
