@@ -5,9 +5,22 @@ from complete_function import *
 from scrape_yahoo_finance import *
 from . import db
 from .models import *
+from cash_flow_function import *
+from balance_function import *
+from income_function import *
+
 
 
 views = Blueprint("views", __name__)
+
+@views.route("/financials")
+def financials():
+    data = get_full_data("intc")
+    cash_flow = get_cash_flow_statement(data)
+    balance = get_balance_sheet(data)
+    income = get_income_statement(data)
+    print((cash_flow.get("cfo_net_income")[1][-1]))
+    return render_template("financials.html", user=current_user, cash_flow=cash_flow, balance=balance, income=income)
 
 @views.route("/")
 def home():

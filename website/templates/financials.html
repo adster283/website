@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<section id="tabs" class="project-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Income</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Balance</a>
+                                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Cash Flow</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <table class="table" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>{{income.get("dates")[1][-1][:4]}}</th>
+                                            <th>{{income.get("dates")[1][-2][:4]}}</th>
+                                            <th>{{income.get("dates")[1][-3][:4]}}</th>
+                                            <th>{{income.get("dates")[1][-4][:4]}}</th>
+                                            <th>{{income.get("dates")[1][-5][:4]}}</th>
+                                            <th>{{income.get("dates")[1][-6][:4]}}</th>
+                                            <th>{{income.get("dates")[1][-7][:4]}}</th>
+                                            <th>{{income.get("dates")[1][-8][:4]}}</th>
+                                            <th>{{income.get("dates")[1][-9][:4]}}</th>
+                                            <th>{{income.get("dates")[1][-10][:4]}}</th>
+                                            <th>{{income.get("dates")[1][-11][:4]}}</th>
+                                        </tr>
+                                    </thead>
+                                    {% for i in income if i != "dates" %}
+                                    <tbody>
+                                        <tr>
+                                            <th>{{income.get(i)[0]}}</th>
+                                            <td>{{(income.get(i)[1][-1]|int / 1000000)|int}}</td>
+                                            <td>{{(income.get(i)[1][-2]|int / 1000000)|int}}</td>
+                                            <td>{{(income.get(i)[1][-3]|int / 1000000)|int}}</td>
+                                            <td>{{(income.get(i)[1][-4]|int / 1000000)|int}}</td>
+                                            <td>{{(income.get(i)[1][-5]|int / 1000000)|int}}</td>
+                                            <td>{{(income.get(i)[1][-6]|int / 1000000)|int}}</td>
+                                            <td>{{(income.get(i)[1][-7]|int / 1000000)|int}}</td>
+                                            <td>{{(income.get(i)[1][-8]|int / 1000000)|int}}</td>
+                                            <td>{{(income.get(i)[1][-9]|int / 1000000)|int}}</td>
+                                            <td>{{(income.get(i)[1][-10]|int / 1000000)|int}}</td>
+                                            <td>{{(income.get(i)[1][-11]|int / 1000000)|int}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <table class="table" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>{{balance.get("dates")[1][-1][:4]}}</th>
+                                            <th>{{balance.get("dates")[1][-2][:4]}}</th>
+                                            <th>{{balance.get("dates")[1][-3][:4]}}</th>
+                                            <th>{{balance.get("dates")[1][-4][:4]}}</th>
+                                            <th>{{balance.get("dates")[1][-5][:4]}}</th>
+                                            <th>{{balance.get("dates")[1][-6][:4]}}</th>
+                                            <th>{{balance.get("dates")[1][-7][:4]}}</th>
+                                            <th>{{balance.get("dates")[1][-8][:4]}}</th>
+                                            <th>{{balance.get("dates")[1][-9][:4]}}</th>
+                                            <th>{{balance.get("dates")[1][-10][:4]}}</th>
+                                            <th>{{balance.get("dates")[1][-11][:4]}}</th>
+                                        </tr>
+                                    </thead>
+                                    {% for i in balance if i != "dates" %}
+                                    <tbody>
+                                        <tr>
+                                            <th>{{balance.get(i)[0]}}</th>
+                                            <td>{{(balance.get(i)[1][-1]|int / 1000000)|int}}</td>
+                                            <td>{{(balance.get(i)[1][-2]|int / 1000000)|int}}</td>
+                                            <td>{{(balance.get(i)[1][-3]|int / 1000000)|int}}</td>
+                                            <td>{{(balance.get(i)[1][-4]|int / 1000000)|int}}</td>
+                                            <td>{{(balance.get(i)[1][-5]|int / 1000000)|int}}</td>
+                                            <td>{{(balance.get(i)[1][-6]|int / 1000000)|int}}</td>
+                                            <td>{{(balance.get(i)[1][-7]|int / 1000000)|int}}</td>
+                                            <td>{{(balance.get(i)[1][-8]|int / 1000000)|int}}</td>
+                                            <td>{{(balance.get(i)[1][-9]|int / 1000000)|int}}</td>
+                                            <td>{{(balance.get(i)[1][-10]|int / 1000000)|int}}</td>
+                                            <td>{{(balance.get(i)[1][-11]|int / 1000000)|int}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                <table class="table" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>{{cash_flow.get("dates")[1][-1][:4]}}</th>
+                                            <th>{{cash_flow.get("dates")[1][-2][:4]}}</th>
+                                            <th>{{cash_flow.get("dates")[1][-3][:4]}}</th>
+                                            <th>{{cash_flow.get("dates")[1][-4][:4]}}</th>
+                                            <th>{{cash_flow.get("dates")[1][-5][:4]}}</th>
+                                            <th>{{cash_flow.get("dates")[1][-6][:4]}}</th>
+                                            <th>{{cash_flow.get("dates")[1][-7][:4]}}</th>
+                                            <th>{{cash_flow.get("dates")[1][-8][:4]}}</th>
+                                            <th>{{cash_flow.get("dates")[1][-9][:4]}}</th>
+                                            <th>{{cash_flow.get("dates")[1][-10][:4]}}</th>
+                                            <th>{{cash_flow.get("dates")[1][-11][:4]}}</th>
+                                        </tr>
+                                    </thead>
+                                    {% for i in cash_flow if i != "dates" %}
+                                    <tbody>
+                                        <tr>
+                                            <th>{{cash_flow.get(i)[0]}}</th>
+                                            <td>{{(cash_flow.get(i)[1][-1]|int / 1000000)|int}}</td>
+                                            <td>{{(cash_flow.get(i)[1][-2]|int / 1000000)|int}}</td>
+                                            <td>{{(cash_flow.get(i)[1][-3]|int / 1000000)|int}}</td>
+                                            <td>{{(cash_flow.get(i)[1][-4]|int / 1000000)|int}}</td>
+                                            <td>{{(cash_flow.get(i)[1][-5]|int / 1000000)|int}}</td>
+                                            <td>{{(cash_flow.get(i)[1][-6]|int / 1000000)|int}}</td>
+                                            <td>{{(cash_flow.get(i)[1][-7]|int / 1000000)|int}}</td>
+                                            <td>{{(cash_flow.get(i)[1][-8]|int / 1000000)|int}}</td>
+                                            <td>{{(cash_flow.get(i)[1][-9]|int / 1000000)|int}}</td>
+                                            <td>{{(cash_flow.get(i)[1][-10]|int / 1000000)|int}}</td>
+                                            <td>{{(cash_flow.get(i)[1][-11]|int / 1000000)|int}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<p4>tester</p4>
+{%endblock %}

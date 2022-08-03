@@ -11,7 +11,7 @@ keys = (
 
 
 
-client = QuickFS(keys[1])
+client = QuickFS(keys[0])
 
 def get_symbols():
     """
@@ -51,8 +51,7 @@ def get_full_data(symbol, save=False, respond=True):
                 with open('output.json', 'w') as outfile:
                     json.dump(data, outfile)
         else:
-            api_key = api_key_2
-            get_full_data()
+            pass
 
         if respond == True & (str(client.resp) == "<Response [200]>"):
             
