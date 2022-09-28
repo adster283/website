@@ -88,7 +88,7 @@ def grahams_valuation(data, visual=True):
         Returns the intrinsic value per share of the company.
     """
     try:
-        current_bond = 4.1
+        current_bond = get_current_bonds()
 
         #calculate growth rate
         rev_growth = data["financials"]["annual"]["revenue_growth"]
@@ -104,7 +104,7 @@ def grahams_valuation(data, visual=True):
         price = (eps*(8.5+(2*grow_rate))*4.4)/current_bond
         if visual == True:
             print("grahams price valuation is: $" + str(round(price,2)))
-        return price
+        return price*0.8
 
     except:
         print("...something went wrong with grahams valuation...")
@@ -147,6 +147,7 @@ def auto_dcf_formula(data, visual=True):
             grow_rate = sum(rev_growth)/len(rev_growth)
             try:
                 high_grow_rate = get_current_estimate(data["metadata"]["symbol"])
+                print("grow", high_grow_rate)
             except: 
                 high_grow_rate = -0.111111
             low_grow_rate = rev_growth[0]
@@ -264,7 +265,7 @@ def auto_dcf_formula(data, visual=True):
                     print("is currently over valued by " + str(round(100-(price/current_price*100),2)) + "%")
                 print("the current price is: $" + str(current_price))
 
-            return {"price_low":(low_price, low_grow_rate), "price_med":(price, grow_rate), "price_high":(high_price, high_grow_rate), "price_close":current_price}
+            return {"price_low":(low_price*0.8, low_grow_rate), "price_med":(price*0.8, grow_rate), "price_high":(high_price*0.8, high_grow_rate), "price_close":current_price}
 
         else:
             print("!company has negative revenue in the last year!")

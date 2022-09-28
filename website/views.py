@@ -39,7 +39,8 @@ def analysis():
         prices = get_current_price_yahoo(ticker)
         ratios = get_current_ratios(ticker)
         div = get_current_div(ticker)
-        return render_template("analysis.html", user=current_user, current_ticker=ticker, data=data ,prices=prices, ratios=ratios, div=div)
+        yeild = get_current_payout(ticker)
+        return render_template("analysis.html", user=current_user, current_ticker=ticker, data=data ,prices=prices, ratios=ratios, div=(div, yeild))
 
     if request.method == "GET":
         ticker = User.query.filter_by(id=current_user.id).first()
@@ -48,7 +49,8 @@ def analysis():
         prices = get_current_price_yahoo(ticker)
         ratios = get_current_ratios(ticker)
         div = get_current_div(ticker)
-        return render_template("analysis.html", user=current_user, current_ticker=ticker, data=data, prices=prices, ratios=ratios, div=div)
+        yeild = get_current_payout(ticker)
+        return render_template("analysis.html", user=current_user, current_ticker=ticker, data=data, prices=prices, ratios=ratios, div=(div, yeild))
 
 #current_stock
 
