@@ -11,9 +11,10 @@ keys = (
 
 
 
-client = QuickFS(keys[1])
+client = QuickFS(keys[0])
 
 def get_symbols():
+    
     """
     Returns all the supported tickers.
     Returns:
@@ -32,7 +33,8 @@ def get_symbols():
         return "NA"
 
 
-def get_full_data(symbol, save=False, respond=True, key=1):
+def get_full_data(symbol, save=False, respond=True, key=0):
+    print("index is ", key)
     """
     Function fetches all data related to the given ticker symbol and returns a dict.
     Arguments:
@@ -43,6 +45,11 @@ def get_full_data(symbol, save=False, respond=True, key=1):
         Reuturns dict of all available data.
     """
     client = QuickFS(keys[key])
+    quota = client.get_usage()["quota"]["remaining"]
+    while quota <= 10:
+        key += 1
+        client = QuickFS(keys[key])
+        quota = client.get_usage()["quota"]["remaining"]
     try:
         data = client.get_data_full(symbol=symbol)
         print(client.get_usage())
@@ -56,11 +63,18 @@ def get_full_data(symbol, save=False, respond=True, key=1):
 
         if respond == True & (str(client.resp) == "<Response [200]>"):
             
-            return data
+            if len(data) >= 3:
+                #return len(data)
+                #return get_full_data(symbol, key=key+1)
+                #print(data)
+                return data
         else:
-            return "NA"
+            print("ticker not found")
+            return get_full_data(symbol, key=key+1)
     except:
-        get_full_data(symbol, key=key+1)
+        print("channging key")
+        #return get_full_data(symbol, key=key+1)
+        
         print("...something went wrong getting ticker data...")
 
 def get_current_price(symbol):
@@ -83,3 +97,4 @@ def get_current_price(symbol):
 if __name__ == "__main__":
     print(get_full_data("pep", save=True, respond=True))
     #print(get_symbols())
+    #print(client.get_usage())
