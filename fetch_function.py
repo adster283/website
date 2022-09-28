@@ -32,7 +32,7 @@ def get_symbols():
         return "NA"
 
 
-def get_full_data(symbol, save=False, respond=True):
+def get_full_data(symbol, save=False, respond=True, key=1):
     """
     Function fetches all data related to the given ticker symbol and returns a dict.
     Arguments:
@@ -42,6 +42,7 @@ def get_full_data(symbol, save=False, respond=True):
     Returns:
         Reuturns dict of all available data.
     """
+    client = QuickFS(keys[key])
     try:
         data = client.get_data_full(symbol=symbol)
         print(client.get_usage())
@@ -59,6 +60,7 @@ def get_full_data(symbol, save=False, respond=True):
         else:
             return "NA"
     except:
+        get_full_data(symbol, key=key+1)
         print("...something went wrong getting ticker data...")
 
 def get_current_price(symbol):
