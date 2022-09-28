@@ -26,9 +26,7 @@ def financials():
 
 @views.route("/")
 def home():
-    tickers = get_trending_tickers()
-    print("tickers:", tickers)
-    return render_template("home.html", user=current_user, tickers=tickers)
+    return render_template("home.html", user=current_user)
 
 @views.route("/analysis", methods=['GET', 'POST'])
 def analysis():
